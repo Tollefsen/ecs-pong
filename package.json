@@ -1,0 +1,30 @@
+{
+  "name": "ecs-pong",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "homepage": "",
+  "private": true,
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack-dev-server --no-inline",
+    "start": "npm run watch",
+    "predeploy": "npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "html-webpack-plugin": "^4.4.1",
+    "source-map-loader": "^1.1.0",
+    "ts-loader": "^8.0.3",
+    "typescript": "^4.0.2",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "ecs": "github:bendiksolheim/ecs#v0.1.3",
+    "pixi.js": "^5.3.3"
+  }
+}
