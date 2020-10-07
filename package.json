@@ -24,7 +24,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "ecs": "github:bendiksolheim/ecs#v0.1.3",
+    "ecs": "github:bendiksolheim/ecs#v0.3.3",
     "pixi.js": "^5.3.3"
   }
 }

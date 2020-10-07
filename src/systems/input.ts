@@ -3,9 +3,9 @@ import Controllable from '../components/Controllable';
 import Velocity from '../components/Velocity';
 
 export default logicSystem(
-    [Position, Velocity, Controllable],
-    (entities: Entity[], world: World) => {
-        entities.forEach(entity => {
+    { players: [Position, Velocity, Controllable]},
+    (entities, world) => {
+        entities.players.forEach(entity => {
             const p = entity.get(Position);
             const velocity = entity.get(Velocity);
             velocity.y = 0;

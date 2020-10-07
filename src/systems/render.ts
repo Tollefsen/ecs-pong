@@ -7,12 +7,13 @@ import {
     Position,
   } from "ecs";
 
-  export default renderSystem([Displayable], (entities: Entity[], lag: number, world: World) => {
-    entities.forEach(entity => {
+  export default renderSystem({ displayable: [Displayable]}, (entities, lag: number, world: World) => {
+    entities.displayable.forEach(entity => {
         const { ref } = entity.get(Displayable);
 
         ifHas(entity, Position, position => {
-            ref.y = position.y;
+          ref.x = position.x;
+          ref.y = position.y;
         });
     })
   });
