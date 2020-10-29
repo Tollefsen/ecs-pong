@@ -7,6 +7,7 @@ import Collidable from "./components/Collidable";
 import Fading from "./components/Fading";
 import Configurationable from "./components/Configurationable";
 import TrailAnimation from "./components/TrailAnimation";
+import Expanding from "./components/Expanding";
 
 export function configuration(stage: PIXI.Container) {
     const entity = new Entity();
@@ -16,7 +17,7 @@ export function configuration(stage: PIXI.Container) {
 
 export function box (x: number, y: number, up: Key, down: Key, stage: PIXI.Container): Entity {
     const g = new PIXI.Graphics();
-    g.beginFill(0xcecece);
+    g.beginFill(0xffffff);
     g.drawRect(0, 0, 40, 300);
     g.endFill();
 
@@ -34,7 +35,7 @@ export function box (x: number, y: number, up: Key, down: Key, stage: PIXI.Conta
 
 export function ball(worldWidth: number, worldHeight: number, stage: PIXI.Container): Entity {
     const g = new PIXI.Graphics();
-    g.beginFill(0xcecece);
+    g.beginFill(0xffffff);
     g.drawRect(0, 0, 40, 40);
     g.endFill();
 
@@ -55,6 +56,7 @@ export function ballFadingTail(x: number, y: number, width: number, height: numb
     g.beginFill(0xcecece);
     g.drawRect(0,0, width, height);
     g.endFill();
+    g.zIndex = -1
 
     const entity = new PixiEntity();
     entity.addDisplayObject(g, stage);
@@ -63,4 +65,29 @@ export function ballFadingTail(x: number, y: number, width: number, height: numb
     position.y = y;
     entity.add(new Fading(frames))
     return entity;
+}
+
+export function ballCollitionAnimation(x: number, y: number, frames: number, stage: PIXI.Container) {
+    const g = new PIXI.Graphics();
+    g.beginFill(0xcecece);
+    g.drawRect(0, 0, 40, 40);
+    g.endFill();
+    g.beginFill(0xADA7A6);
+    g.drawRect(5, 5, 30, 30);
+    g.endFill();
+    g.beginFill(0x656464);
+    g.drawRect(10, 10, 20, 20);
+    g.endFill();
+    g.pivot.x = 20;
+    g.pivot.y = 20;
+
+    const entity = new PixiEntity();
+    entity.addDisplayObject(g, stage);
+    const position = entity.get(Position);
+    position.x = x;
+    position.y = y;
+    entity.add(new Fading(frames));
+    entity.add(new Expanding(0.1));
+    return entity;
+
 }

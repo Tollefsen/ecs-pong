@@ -6,6 +6,7 @@ import {
     Displayable,
     Position, Size
   } from "ecs";
+import Expanding from "../components/Expanding";
 import Fading from "../components/Fading";
 
   export default renderSystem({ displayable: [Displayable]}, (entities, lag: number, world: World) => {
@@ -22,12 +23,17 @@ import Fading from "../components/Fading";
           fading.framesRemaining--;
           const size = entity.get(Size);
 
-          ref.alpha -= 0.1;
+          ref.alpha -= 1 / fading.initialFrames;
           if (fading.framesRemaining === 0) {
             ref.parent.removeChild(ref)
             world.removeEntity(entity.id);
 
           }
+        })
+
+        ifHas(entity, Expanding, expanding => {
+          ref.scale.x += expanding.scaleRate;
+          ref.scale.y += expanding.scaleRate;
         })
     })
   });
