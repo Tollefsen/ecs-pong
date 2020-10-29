@@ -4,6 +4,15 @@ import Controllable from "./components/Controllable";
 import Velocity from "./components/Velocity";
 import Uncontrollable from "./components/Uncontrollable";
 import Collidable from "./components/Collidable";
+import Fading from "./components/Fading";
+import Configurationable from "./components/Configurationable";
+import TrailAnimation from "./components/TrailAnimation";
+
+export function configuration(stage: PIXI.Container) {
+    const entity = new Entity();
+    entity.add(new Configurationable(stage));
+    return entity;
+}
 
 export function box (x: number, y: number, up: Key, down: Key, stage: PIXI.Container): Entity {
     const g = new PIXI.Graphics();
@@ -19,6 +28,7 @@ export function box (x: number, y: number, up: Key, down: Key, stage: PIXI.Conta
     entity.add(new Controllable(up, down));
     entity.add(new Velocity(0, 0));
     entity.add(new Collidable());
+    entity.add(new TrailAnimation());
     return entity;
 }
 
@@ -36,5 +46,21 @@ export function ball(worldWidth: number, worldHeight: number, stage: PIXI.Contai
     entity.add(new Velocity(4, 8));
     entity.add(new Uncontrollable());
     entity.add(new Collidable());
+    entity.add(new TrailAnimation());
+    return entity;
+}
+
+export function ballFadingTail(x: number, y: number, width: number, height: number, frames: number, stage: PIXI.Container) {
+    const g = new PIXI.Graphics();
+    g.beginFill(0xcecece);
+    g.drawRect(0,0, width, height);
+    g.endFill();
+
+    const entity = new PixiEntity();
+    entity.addDisplayObject(g, stage);
+    const position = entity.get(Position);
+    position.x = x;
+    position.y = y;
+    entity.add(new Fading(frames))
     return entity;
 }

@@ -4,10 +4,12 @@ import {
     Entity,
     Component,
     Displayable,
-    Position,
+    Position, Size
   } from "ecs";
+import Fading from "../components/Fading";
 
   export default renderSystem({ displayable: [Displayable]}, (entities, lag: number, world: World) => {
+    
     entities.displayable.forEach(entity => {
         const { ref } = entity.get(Displayable);
 
@@ -15,6 +17,18 @@ import {
           ref.x = position.x;
           ref.y = position.y;
         });
+
+        ifHas(entity, Fading, fading => {
+          fading.framesRemaining--;
+          const size = entity.get(Size);
+
+          ref.alpha -= 0.1;
+          if (fading.framesRemaining === 0) {
+            ref.parent.removeChild(ref)
+            world.removeEntity(entity.id);
+
+          }
+        })
     })
   });
 
